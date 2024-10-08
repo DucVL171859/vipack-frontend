@@ -1,4 +1,4 @@
-import Login from '../pages/authentication/Login';
+import Login from 'pages/authentication/Login';
 
 const LoginRoutes = {
     path: '/login',

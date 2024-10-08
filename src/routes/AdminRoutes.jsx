@@ -3,7 +3,6 @@ import Loadable from 'components/Loadable';
 
 import Dashboard from "layout/Dashboard";
 import ProtectedRoute from "components/ProtectedRoute";
-import ShopPage from "pages/ShopPage";
 
 const AdminPage = Loadable(lazy(() => import('pages/AdminPage')));
 const BlogView = Loadable(lazy(() => import('pages/admin/blog/BlogView')));
