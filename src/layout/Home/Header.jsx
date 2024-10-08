@@ -36,7 +36,9 @@ const Header = () => {
                                 </a>
                             </div>
                             <div className='col-3' style={{ display: 'flex', justifyContent: 'end' }}>
-                                <IconButton color="inherit" href='/login'><AccountCircleOutlined /></IconButton>
+                                <a href="/login">
+                                    <button>Đăng nhập</button>
+                                </a>
                             </div>
                         </>
                     ) : (
