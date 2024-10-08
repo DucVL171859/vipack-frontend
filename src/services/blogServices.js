@@ -17,17 +17,7 @@ const updateBlog = async (id, updateBlog) => {
 }
 
 const deleteBlog = async (id) => {
-    let token = sessionStorage.getItem('token');
-    try {
-        let res = await axios.delete(`/api/blogs/${id}`);
-        if (res.status === 204) {
-            return res;
-        } else {
-            throw new Error(`Request failed with status`);
-        }
-    } catch (error) {
-        console.log(error);
-    }
+    return await axios.delete(`/api/blogs/${id}`);
 }
 
 export default {

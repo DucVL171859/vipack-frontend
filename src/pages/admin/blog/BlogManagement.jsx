@@ -8,20 +8,20 @@ const BlogManagement = () => {
     const navigate = useNavigate();
     const [blogs, setBlogs] = useState([]);
     useEffect(() => {
-        const getAllBlogs = async () => {
-            try {
-                let resOfBlogs = await blogServices.getAllBlogs();
-                if (resOfBlogs) {
-                    console.log(resOfBlogs.data)
-                    setBlogs(resOfBlogs.data);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         getAllBlogs();
     }, []);
+
+    const getAllBlogs = async () => {
+        try {
+            let resOfBlogs = await blogServices.getAllBlogs();
+            if (resOfBlogs) {
+                console.log(resOfBlogs.data)
+                setBlogs(resOfBlogs.data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleView = (slug) => {
         navigate(`${slug}`);
@@ -36,7 +36,7 @@ const BlogManagement = () => {
             let resOfDelete = await blogServices.deleteBlog(blog._id);
             if (resOfDelete) {
                 toast.success('Bạn đã ẩn blog thành công');
-                setBlogs(blog);
+                getAllBlogs();
             }
         }
     };
