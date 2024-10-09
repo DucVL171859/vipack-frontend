@@ -30,7 +30,7 @@ const BlogDetailPage = () => {
     return (
         <>
             <Header />
-            <div style={{ background: 'red' }}>
+            <div>
                 <BlogTitle title={blog.title} />
                 <BlogContent content={blog.content} imgURL={blog.imageUrl} />
             </div>
