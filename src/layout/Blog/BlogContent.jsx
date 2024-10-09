@@ -6,7 +6,8 @@ const BlogContent = ({ content, imgURL }) => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            sx={{ width: '100%', maxWidth: '600px', margin: '0 auto' }}
+            sx={{ width: '100%', maxWidth: '700px', margin: '0 auto' }}
+            p={4}
         >
             <img
                 src={imgURL}
@@ -17,7 +18,7 @@ const BlogContent = ({ content, imgURL }) => {
                     marginBottom: '16px'
                 }}
             />
-            <Typography variant="body1" sx={{ textAlign: 'center', width: '100%' }}>
+            <Typography variant="body1" sx={{ textAlign: 'left', width: '100%', fontSize: '1.5rem' }}>
                 {content}
             </Typography>
         </Box>

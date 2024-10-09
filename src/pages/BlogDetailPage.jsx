@@ -18,7 +18,6 @@ const BlogDetailPage = () => {
                 let resOfBlog = await blogServices.getBlogsById(slug);
                 if (resOfBlog) {
                     setBlog(resOfBlog.data);
-                    console.log(resOfBlog.data);
                 }
             } catch (error) {
                 console.log(error);
@@ -31,8 +30,10 @@ const BlogDetailPage = () => {
     return (
         <>
             <Header />
-            <BlogTitle title={blog.title} />
-            <BlogContent content={blog.content} imgURL={blog.imageUrl} />
+            <div style={{ background: 'red' }}>
+                <BlogTitle title={blog.title} />
+                <BlogContent content={blog.content} imgURL={blog.imageUrl} />
+            </div>
             <Footer />
         </>
     )

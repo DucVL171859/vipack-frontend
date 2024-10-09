@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AccountCircleOutlined, FavoriteOutlined, ShoppingCartOutlined, Menu } from '@mui/icons-material';
+import { AccountCircleOutlined, Menu } from '@mui/icons-material';
 import { AppBar, Button, Drawer, IconButton, Toolbar, TextField, useMediaQuery } from '@mui/material';
 import logo from 'assets/images/logo.png';
 
@@ -36,9 +36,7 @@ const Header = () => {
                                 </a>
                             </div>
                             <div className='col-3' style={{ display: 'flex', justifyContent: 'end' }}>
-                                <a href="/login">
-                                    <button>Đăng nhập</button>
-                                </a>
+                                <IconButton href='/login' color="inherit"><AccountCircleOutlined /></IconButton>
                             </div>
                         </>
                     ) : (

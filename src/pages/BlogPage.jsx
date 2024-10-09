@@ -14,7 +14,6 @@ const BlogPage = () => {
             let resOfBlogs = await blogServices.getAllBlogs();
             if (resOfBlogs) {
                 setBlogs(resOfBlogs.data);
-                console.log(resOfBlogs.data);
             }
         };
 
@@ -47,13 +46,13 @@ const BlogPage = () => {
                     </Container>
                 </Box>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={2} p={4}>
                     {blogs.map((blog) => (
                         <Grid item xs={12} sm={6} md={4} key={blog._id}>
-                            <Card onClick={() => handleViewDetail(blog._id)}>
+                            <Card onClick={() => handleViewDetail(blog._id)} sx={{ cursor: 'pointer' }}>
                                 <CardMedia
                                     component="img"
-                                    height="140"
+                                    height="300"
                                     image={blog.imageUrl}
                                     alt={blog.title}
                                 />
