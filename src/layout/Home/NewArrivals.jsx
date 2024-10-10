@@ -13,8 +13,6 @@ const products = [
     { id: 2, name: 'Product 2', image: P2, oldPrice: 150000, newPrice: 119000 },
     { id: 3, name: 'Product 3', image: P3, oldPrice: 150000, newPrice: 119000 },
     { id: 4, name: 'Product 4', image: P4, oldPrice: 150000, newPrice: 119000 },
-    { id: 5, name: 'Product 5', image: P5, oldPrice: 150000, newPrice: 119000 },
-    { id: 6, name: 'Product 6', image: P6, oldPrice: 150000, newPrice: 119000 },
 ];
 
 const formatPrice = (price) => {
@@ -39,7 +37,7 @@ const NewArrivals = () => {
             }}
         >
             <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, pb: 2 }}>
-                SẢN PHẨM MỚI
+                SẢN PHẨM SẮP RA MẮT
             </Typography>
             <Box
                 sx={{

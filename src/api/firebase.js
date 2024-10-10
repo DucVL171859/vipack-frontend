@@ -1,18 +1,16 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAnalytics } from "firebase/analytics";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAk1_v7CQdGyAOhctR4a80_NaiBEhNNSVw",
-    authDomain: "vipack-frontend-6eccd.firebaseapp.com",
-    projectId: "vipack-frontend-6eccd",
-    storageBucket: "vipack-frontend-6eccd.appspot.com",
-    messagingSenderId: "360612359697",
-    appId: "1:360612359697:web:f70e230d4c3a49e3ae8bb0"
+    apiKey: "AIzaSyDXNXLW3nLwiwlWz6Fc9W9GsuFMTZ4P8DU",
+    authDomain: "vipack-project.firebaseapp.com",
+    projectId: "vipack-project",
+    storageBucket: "vipack-project.appspot.com",
+    messagingSenderId: "986510739535",
+    appId: "1:986510739535:web:8c42bb7b4ec1e2187f823a",
+    measurementId: "G-Z3FMVGPJ1S"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const storage = getStorage(app);
+const analytics = getAnalytics(app);
+export default analytics;
