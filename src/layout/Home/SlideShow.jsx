@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 const slides = [
     {
         title: 'Slide 1',
-        imgSrc: 'https://bizweb.dktcdn.net/100/363/348/themes/731970/assets/slide-img1.jpg?1725286589169'
+        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/vipack-project.appspot.com/o/home-page%2FIMG_0001.jpg?alt=media&token=10c64c8c-42a3-4eaf-bcda-70d5cbf8bcd6'
     },
     {
         title: 'Slide 2',
-        imgSrc: 'https://bizweb.dktcdn.net/100/363/348/themes/731970/assets/slide-img2.jpg?1725286589169'
+        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/vipack-project.appspot.com/o/home-page%2FIMG_0016.jpg?alt=media&token=a693e965-0305-424d-a770-e6c0a2c22d8b'
     }
 ];
 

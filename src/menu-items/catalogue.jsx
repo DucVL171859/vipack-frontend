@@ -1,7 +1,8 @@
-import { BallotOutlined } from '@mui/icons-material';
+import { BallotOutlined, ContentPasteGoOutlined } from '@mui/icons-material';
 
 const icons = {
-    BallotOutlined
+    BallotOutlined,
+    ContentPasteGoOutlined
 };
 
 const catalogue = {
@@ -15,7 +16,14 @@ const catalogue = {
             type: 'item',
             url: '/admin/blogs',
             icon: icons.BallotOutlined,
-        }
+        },
+        {
+            id: 'order',
+            title: 'Đơn hàng',
+            type: 'item',
+            url: '/admin/orders',
+            icon: icons.ContentPasteGoOutlined,
+        },
     ]
 };
 

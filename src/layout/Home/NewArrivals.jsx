@@ -9,10 +9,10 @@ import P5 from 'assets/fake-products/P5.png';
 import P6 from 'assets/fake-products/P6.png';
 
 const products = [
-    { id: 1, name: 'Product 1', image: P1, oldPrice: 150000, newPrice: 119000 },
-    { id: 2, name: 'Product 2', image: P2, oldPrice: 150000, newPrice: 119000 },
-    { id: 3, name: 'Product 3', image: P3, oldPrice: 150000, newPrice: 119000 },
-    { id: 4, name: 'Product 4', image: P4, oldPrice: 150000, newPrice: 119000 },
+    { id: 1, name: 'Product 1', image: P1, oldPrice: 99000, newPrice: 79000 },
+    { id: 2, name: 'Product 2', image: P2, oldPrice: 99000, newPrice: 79000 },
+    { id: 3, name: 'Product 3', image: P3, oldPrice: 99000, newPrice: 79000 },
+    { id: 4, name: 'Product 4', image: P4, oldPrice: 99000, newPrice: 79000 },
 ];
 
 const formatPrice = (price) => {

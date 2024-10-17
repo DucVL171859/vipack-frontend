@@ -1,46 +1,22 @@
-import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import MainCard from "components/MainCard";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import blogServices from "services/blogServices";
+import orderServices from "services/orderServices";
 
-const BlogManagement = () => {
-    const navigate = useNavigate();
-    const [blogs, setBlogs] = useState([]);
+const OrderManagement = () => {
+    const [order, setOrder] = useState([]);
+
     useEffect(() => {
-        getAllBlogs();
+        const getOrder = async () => {
+            let resOfOrder = await orderServices.getOrder();
+            if (resOfOrder) {
+                setOrder(resOfOrder.data);
+                console.log(resOfOrder.data)
+            }
+        }
+
+        getOrder();
     }, []);
-
-    const getAllBlogs = async () => {
-        try {
-            let resOfBlogs = await blogServices.getAllBlogs();
-            if (resOfBlogs) {
-                console.log(resOfBlogs.data)
-                setBlogs(resOfBlogs.data);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleView = (slug) => {
-        navigate(`${slug}`);
-    };
-
-    const handleEdit = (id) => {
-    };
-
-    const handleDelete = async (blog) => {
-        const confirmDelete = window.confirm("Bạn có chắc chắn muốn ẩn blog này?");
-        if (confirmDelete) {
-            let resOfDelete = await blogServices.deleteBlog(blog._id);
-            if (resOfDelete) {
-                toast.success('Bạn đã ẩn blog thành công');
-                getAllBlogs();
-            }
-        }
-    };
 
     return (
         <MainCard>
@@ -48,20 +24,20 @@ const BlogManagement = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell><Typography variant="h6">ID</Typography></TableCell>
-                            <TableCell><Typography variant="h6">Chủ đề</Typography></TableCell>
-                            <TableCell><Typography variant="h6">Ngày tạo</Typography></TableCell>
+                            <TableCell><Typography variant="h6">Khách hàng</Typography></TableCell>
+                            <TableCell><Typography variant="h6">Thời gian mua</Typography></TableCell>
+                            <TableCell><Typography variant="h6">Thời gian mua</Typography></TableCell>
                             <TableCell><Typography variant="h6">Trạng thái</Typography></TableCell>
                             <TableCell><Typography variant="h6">Hành động</Typography></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {blogs.map((blog) => (
-                            <TableRow key={blog._id}>
-                                <TableCell>{blog._id}</TableCell>
-                                <TableCell>{blog.title}</TableCell>
-                                <TableCell>{new Date(blog.createdAt).toLocaleDateString('en-GB')}</TableCell>
-                                <TableCell>{blog.status}</TableCell>
+                        {order && order.map((order) => (
+                            <TableRow key={order._id}>
+                                <TableCell>{order.shippingAddress.name} / {order.shippingAddress.phoneNumber}</TableCell>
+                                <TableCell>{new Date(order.createdAt).toLocaleDateString('en-GB')}</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell>{order.status}</TableCell>
                                 <TableCell>
                                     <Button
                                         variant="contained"
@@ -93,7 +69,7 @@ const BlogManagement = () => {
                 </Table>
             </TableContainer>
         </MainCard>
-    );
+    )
 }
 
-export default BlogManagement;
+export default OrderManagement;
