@@ -6,7 +6,7 @@ const BlogContent = ({ content, imgURL }) => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            sx={{ width: '100%', maxWidth: '700px', margin: '0 auto' }}
+            sx={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}
             p={4}
         >
             <img
