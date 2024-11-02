@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const slides = [
     {
         title: 'Slide 1',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/vipack-project.appspot.com/o/home-page%2FIMG_0001.jpg?alt=media&token=10c64c8c-42a3-4eaf-bcda-70d5cbf8bcd6'
+        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/vipack-project.appspot.com/o/home-page%2FFINAL%20BST2.png?alt=media&token=415fe63b-f09e-4672-987a-4d1a30b2b257'
     },
     {
         title: 'Slide 2',

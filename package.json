@@ -36,6 +36,7 @@
     "redux-persist": "^6.0.0",
     "simplebar-react": "^3.2.6",
     "swr": "^2.2.5",
+    "three": "^0.169.0",
     "vite-jsconfig-paths": "^2.0.1"
   },
   "devDependencies": {

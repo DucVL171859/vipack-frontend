@@ -1,58 +1,103 @@
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
-import P1 from 'assets/fake-products/P1.png';
-import P2 from 'assets/fake-products/P2.png';
-import P3 from 'assets/fake-products/P3.png';
-import P4 from 'assets/fake-products/P4.png';
-import P5 from 'assets/fake-products/P5.png';
-import P6 from 'assets/fake-products/P6.png';
-
-const products = [
-    { id: 1, name: 'Product 1', image: P1, oldPrice: 150000, newPrice: 119000 },
-    { id: 2, name: 'Product 2', image: P2, oldPrice: 150000, newPrice: 119000 },
-    { id: 3, name: 'Product 3', image: P3, oldPrice: 150000, newPrice: 119000 },
-    { id: 4, name: 'Product 4', image: P4, oldPrice: 150000, newPrice: 119000 },
-];
+import { Card, CardMedia, CardContent, Typography, Button, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { useEffect, useState } from 'react';
+import shopServices from 'services/shopServices';
 
 const formatPrice = (price) => {
-    return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    return price.toLocaleString('vi-VN');
 };
 
 const Products = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const [listOfProduct, setListOfProduct] = useState([]);
+    const [hoveredProductId, setHoveredProductId] = useState(null);
+    const [showButtonTimeout, setShowButtonTimeout] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await getAllProduct();
+        };
+
+        fetchData();
+    }, []);
+
+    const getAllProduct = async () => {
+        let res = await shopServices.getAllProduct();
+        if (res) {
+            setListOfProduct(res.data.products);
+        }
+    };
+
+    const handleMouseEnter = (id) => {
+        setHoveredProductId(id);
+        let timeout = setTimeout(() => {
+            setShowButtonTimeout(id);
+        }, 1000);
+        setShowButtonTimeout(timeout);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredProductId(null);
+        if (showButtonTimeout) {
+            clearTimeout(showButtonTimeout);
+            setShowButtonTimeout(null);
+        }
+    };
+
     return (
-        <Box
-            sx={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-                gap: isMobile ? '3px' : 4,
-                width: '100%',
-                justifyItems: 'center'
-            }}
-        >
-            {products.slice(0, 6).map((product) => (
-                <Box key={product.id} sx={{ textAlign: 'center', width: '100%', mb: 4 }}>
-                    <img
-                        src={product.image}
-                        alt={product.name}
-                        style={{
-                            width: isMobile ? '160px' : '100%',
-                            height: isMobile ? '220px' : '400px',
-                            objectFit: 'cover',
-                        }}
-                    />
-                    <Typography variant="body1" sx={{ fontWeight: 600 }}>{product.name}</Typography>
-                    <Typography variant="body1" sx={{ display: 'inline', mr: 1, fontWeight: 600 }}>
-                        {formatPrice(product.newPrice)}
-                    </Typography>
-                    <Typography variant="body2" sx={{ textDecoration: 'line-through', color: 'grey', display: 'inline' }}>
-                        {formatPrice(product.oldPrice)}
-                    </Typography>
-                </Box>
+        <Grid container spacing={isMobile ? 1 : 2} columns={isMobile ? 2 : 3}>
+            {listOfProduct && listOfProduct.map((product) => (
+                <Grid item xs={1} key={product._id}>
+                    <Card sx={{ position: 'relative' }}>
+                        <CardMedia
+                            component="img"
+                            image={hoveredProductId === product._id ? product.image2 : product.image}
+                            alt={product.name}
+                            sx={{
+                                height: isMobile ? 220 : 400,
+                                objectFit: 'cover',
+                                transition: '1s ease',
+                                '&:hover': {
+                                    opacity: '0.6',
+                                },
+                            }}
+                            onMouseEnter={() => handleMouseEnter(product._id)}
+                            onMouseLeave={handleMouseLeave}
+                        />
+                        <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                            <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                                {product.name}
+                            </Typography>
+                            <Typography variant="body1" sx={{ display: 'inline', fontWeight: 600 }}>
+                                {product.price && `${formatPrice(product.price)} VND`}
+                            </Typography>
+                        </CardContent>
+                        {hoveredProductId === product._id && (
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                    border: '1px solid white',
+                                    opacity: hoveredProductId === product._id ? 1 : 0,
+                                    transition: 'opacity 3s ease',
+                                    zIndex: 2,
+                                }}
+                                onClick={() => {/* Handle view detail */ }}
+                            >
+                                View Details
+                            </Button>
+                        )}
+                    </Card>
+                </Grid>
             ))}
-        </Box>
-    )
-}
+        </Grid>
+    );
+};
 
 export default Products;

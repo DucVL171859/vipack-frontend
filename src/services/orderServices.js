@@ -1,9 +1,58 @@
 import aixos from "api/aixos";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const getOrder = async () => {
-    return await aixos.get('/api/orders');
+const isAdmin = sessionStorage.getItem('isAdmin');
+
+const createOrder = async (createdData) => {
+    return await aixos.post(`/api/orders`, createdData);
+}
+
+const getOrders = async () => {
+    if (isAdmin) {
+        return await aixos.get('/api/orders');
+    } else {
+        toast.error('Tài khoản này không cho phép lấy dữ liệu');
+    }
+}
+
+const getOrderById = async (orderId) => {
+    if (isAdmin) {
+        return await aixos.get(`/api/orders/${orderId}/pay`);
+    } else {
+        toast.error('Tài khoản này không cho phép lấy dữ liệu');
+    }
+}
+
+const updateStatusToBePaid = async (orderId) => {
+    if (isAdmin) {
+        return await aixos.put(`/api/orders/${orderId}`);
+    } else {
+        toast.error('Tài khoản này không cho phép lấy dữ liệu');
+    }
+}
+
+const updateStatusToBeDeliveried = async (orderId) => {
+    if (isAdmin) {
+        return await aixos.put(`/api/orders/${orderId}/deliver`);
+    } else {
+        toast.error('Tài khoản này không cho phép lấy dữ liệu');
+    }
+}
+
+const deleteOrder = async (orderId) => {
+    if (isAdmin) {
+        return await axios.delete(`/api/orders/${orderId}`);
+    } else {
+        toast.error('Tài khoản này không cho phép lấy dữ liệu');
+    }
 }
 
 export default {
-    getOrder
+    createOrder,
+    getOrders,
+    getOrderById,
+    updateStatusToBePaid,
+    updateStatusToBeDeliveried,
+    deleteOrder
 }
