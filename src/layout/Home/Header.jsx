@@ -61,28 +61,14 @@ const Header = () => {
 
                     {!isMobile ? (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button href='/#hot-sale' sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm nổi bật</Button>
-                            <Button href='/#collections' sx={{ color: '#000', fontSize: '.725rem' }}>Bộ sưu tập</Button>
+                            <Button href='/order-product' sx={{ color: '#000', fontSize: '.725rem' }}>Đặt hàng</Button>
                             <Button href='/#new-arrivals' sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm mới</Button>
+                            <Button href='/#pre-products' sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm sắp ra mắt</Button>
                             <Button href='/blogs' sx={{ color: '#000', fontSize: '.725rem' }}>Blogs</Button>
                         </div>
                     ) : (
                         <div style={{ flexGrow: 1 }} />
                     )}
-
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
-                        <TextField
-                            variant="outlined"
-                            placeholder="Tìm kiếm sản phẩm..."
-                            size="small"
-                            sx={{ width: '250px', height: '30px' }}
-                            InputProps={{
-                                style: {
-                                    height: '30px',
-                                }
-                            }}
-                        />
-                    </div>
                 </Toolbar>
             </AppBar>
 
