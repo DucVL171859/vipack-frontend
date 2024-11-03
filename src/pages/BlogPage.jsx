@@ -57,7 +57,13 @@ const BlogPage = () => {
                                     alt={blog.title}
                                 />
                                 <CardContent>
-                                    <Typography variant="h6">{blog.title}</Typography>
+                                    <Typography variant="h6"
+                                        sx={{
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                            textOverflow: 'ellipsis'
+                                        }}
+                                    >{blog.title}</Typography>
                                     <Typography color="textSecondary">
                                         {new Date(blog.createdAt).toLocaleDateString('en-GB')}
                                     </Typography>
