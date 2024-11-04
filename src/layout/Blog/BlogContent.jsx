@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 const BlogContent = ({ content, imgURL }) => {
     return (
@@ -18,9 +18,11 @@ const BlogContent = ({ content, imgURL }) => {
                     marginBottom: '16px'
                 }}
             />
-            <Typography variant="body1" sx={{ textAlign: 'left', width: '100%', fontSize: '1.5rem' }}>
-                {content}
-            </Typography>
+            <Box
+                component="div"
+                sx={{ textAlign: 'left', width: '100%', fontSize: '1.5rem' }}
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
         </Box>
     );
 }

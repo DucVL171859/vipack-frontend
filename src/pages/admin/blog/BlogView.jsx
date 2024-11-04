@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Container, TextField, Button, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Container, TextField, Button, Paper, Box, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import blogServices from 'services/blogServices';
 import { useParams } from 'react-router-dom';
@@ -8,15 +8,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const BlogView = () => {
-    const myRef = useRef();
     const { slug } = useParams();
-    const [blog, setBlog] = useState(null);
+    const [blog, setBlog] = useState({ title: '', content: '', status: '', createdAt: '' });
     const [isEditMode, setIsEditMode] = useState(false);
 
     useEffect(() => {
         const getBlog = async () => {
             try {
-                let resOfBlog = await blogServices.getBlogsById(slug);
+                const resOfBlog = await blogServices.getBlogsById(slug);
                 setBlog(resOfBlog.data);
             } catch (error) {
                 toast.error('Blog này không còn tồn tại');
@@ -27,23 +26,25 @@ const BlogView = () => {
     }, [slug]);
 
     const handleEditToggle = () => {
-        setIsEditMode(!isEditMode);
+        setIsEditMode(prev => !prev);
     };
 
-    const handleActivate = async () => {
-        try {
-            toast.success('Blog activated successfully!');
-        } catch (error) {
-            toast.error('Error activating blog');
+    const handleActivate = async (status) => {
+        if (status === 'active') {
+            toast.success('Ẩn Blog thành công');
+        } else if (status === 'inactive') {
+            toast.success('Kích hoạt Blog thành công');
+        } else {
+            toast.error('Lỗi không thao tác được');
         }
     };
 
     const handleContentChange = (content) => {
-        setBlog({ ...blog, content });
+        setBlog(prev => ({ ...prev, content }));
     };
 
     const handleTitleChange = (event) => {
-        setBlog({ ...blog, title: event.target.value });
+        setBlog(prev => ({ ...prev, title: event.target.value }));
     };
 
     const handleSave = async () => {
@@ -58,25 +59,42 @@ const BlogView = () => {
 
     const handleCancel = () => {
         setIsEditMode(false);
+    }
+
+    const getBlogStatus = (status) => {
+        if (status === 'active') {
+            return { text: 'Đã kích hoạt', color: '#28a745' };
+        }
+        if (status === 'inactive') {
+            return { text: 'Chưa kích hoạt', color: 'red' };
+        }
+        return { text: 'Trạng thái không xác định' };
     };
 
-    if (!blog) {
+    if (!blog.title) {
         return <div>Loading...</div>;
     }
+
+    const statusInfo = getBlogStatus(blog.status);
 
     return (
         <MainCard>
             <Container maxWidth="xl" style={{ marginTop: '20px' }}>
                 <Paper elevation={3} style={{ padding: '20px' }}>
-                    <div ref={myRef} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div>
-                            <TextField
-                                label="Trạng thái"
-                                value={blog.status}
-                                disabled
-                                variant="outlined"
-                                style={{ marginBottom: '10px', width: '200px' }}
-                            />
+                            <Typography variant="h6"
+                                sx={{
+                                    color: statusInfo.color,
+                                    fontWeight: 'bold',
+                                    border: `1px solid ${statusInfo.color}`,
+                                    borderRadius: '20px',
+                                    padding: '8px 12px',
+                                    display: 'inline-block',
+                                    mb: 2
+                                }}>
+                                {statusInfo.text}
+                            </Typography>
                             <TextField
                                 label="Ngày tạo"
                                 value={new Date(blog.createdAt).toLocaleDateString('en-GB')}
@@ -85,8 +103,12 @@ const BlogView = () => {
                                 style={{ marginBottom: '10px', width: '200px', display: 'block' }}
                             />
                         </div>
-                        <Button onClick={handleActivate} color="secondary" variant="contained">
-                            Kích hoạt
+                        <Button
+                            onClick={() => handleActivate(blog.status)}
+                            color="secondary"
+                            variant="contained"
+                        >
+                            {blog.status === 'active' ? 'Ẩn Blog' : 'Kích hoạt Blog'}
                         </Button>
                     </div>
                     <TextField
@@ -106,29 +128,42 @@ const BlogView = () => {
                                 toolbar: [
                                     [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
                                     ['bold', 'italic', 'underline'],
+                                    ['clean'],
                                 ],
                             }}
-                            style={{ height: '300px', marginTop: '20px' }}
+                            style={{ height: '300px', marginTop: '20px', marginBottom: '20px' }}
                         />
                     ) : (
-                        <TextField
-                            label="Nội dung"
-                            value={blog.content}
-                            multiline
-                            rows={4}
-                            variant="outlined"
-                            fullWidth
-                            disabled
-                            style={{ marginTop: '20px' }}
-                        />
+                        <Box sx={{ border: '1px solid #000', borderRadius: '5px', p: 2, mt: 4 }}>
+                            <div
+                                style={{ marginTop: '20px' }}
+                                dangerouslySetInnerHTML={{ __html: blog.content }}
+                            />
+                        </Box>
                     )}
                     <div style={{ marginTop: '20px' }}>
                         {isEditMode ? (
-                            <Button onClick={handleSave} color="primary" variant="contained">Lưu</Button>
+                            <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                                <Button
+                                    onClick={handleSave}
+                                    color="primary"
+                                    variant="contained"
+                                    style={{ backgroundColor: '#4caf50' }}
+                                >
+                                    Lưu
+                                </Button>
+                                <Button
+                                    onClick={handleCancel}
+                                    color="secondary"
+                                    variant="contained"
+                                    style={{ backgroundColor: 'red' }}
+                                >
+                                    Hủy
+                                </Button>
+                            </div>
                         ) : (
                             <Button onClick={handleEditToggle} color="primary" variant="contained">Sửa</Button>
                         )}
-                        <Button onClick={handleCancel} color="info" variant="outlined" style={{ marginLeft: '10px' }}>Quay lại</Button>
                     </div>
                 </Paper>
             </Container>
