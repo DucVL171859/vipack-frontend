@@ -9,11 +9,7 @@ const createOrder = async (createdData) => {
 }
 
 const getOrders = async () => {
-    if (isAdmin) {
-        return await aixos.get('/api/orders');
-    } else {
-        toast.error('Tài khoản này không cho phép lấy dữ liệu');
-    }
+    return await aixos.get('/api/orders');
 }
 
 const getOrderById = async (orderId) => {

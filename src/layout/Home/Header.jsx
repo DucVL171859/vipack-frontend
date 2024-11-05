@@ -62,6 +62,7 @@ const Header = () => {
                     {!isMobile ? (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <Button href='/order-product' sx={{ color: '#000', fontSize: '.725rem' }}>Đặt hàng</Button>
+                            <Button href='/order-tracking' sx={{ color: '#000', fontSize: '.725rem' }}>Kiểm tra đơn hàng</Button>
                             <Button href='/#new-arrivals' sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm mới</Button>
                             <Button href='/#pre-products' sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm sắp ra mắt</Button>
                             <Button href='/blogs' sx={{ color: '#000', fontSize: '.725rem' }}>Blogs</Button>
@@ -74,9 +75,10 @@ const Header = () => {
 
             <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
                 <div style={{ width: 300 }}>
-                    <Button href='/#hot-sale' onClick={toggleDrawer(false)} sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm nổi bật</Button>
-                    <Button href='/#collections' onClick={toggleDrawer(false)} sx={{ color: '#000', fontSize: '.725rem' }}>Bộ sưu tập</Button>
+                    <Button href='/order-product' onClick={toggleDrawer(false)} sx={{ color: '#000', fontSize: '.725rem' }}>Đặt hàng</Button>
+                    <Button href='/order-tracking' onClick={toggleDrawer(false)} sx={{ color: '#000', fontSize: '.725rem' }}>Kiểm tra đơn hàng</Button>
                     <Button href='/#new-arrivals' onClick={toggleDrawer(false)} sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm mới</Button>
+                    <Button href='/#pre-products' onClick={toggleDrawer(false)} sx={{ color: '#000', fontSize: '.725rem' }}>Sản phẩm sắp ra mắt</Button>
                     <Button href='/blogs' onClick={toggleDrawer(false)} sx={{ color: '#000', fontSize: '.725rem' }}>Blogs</Button>
                 </div>
             </Drawer>
