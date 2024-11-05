@@ -12,7 +12,7 @@ const ShopRoutes = {
             element: <ShopPage />
         },
         {
-            path: 'product-detail',
+            path: 'product/:slug',
             element: <ProductDetailPage />
         }
     ]

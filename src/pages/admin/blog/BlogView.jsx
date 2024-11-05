@@ -131,7 +131,7 @@ const BlogView = () => {
                                     ['clean'],
                                 ],
                             }}
-                            style={{ height: '300px', marginTop: '20px', marginBottom: '20px' }}
+                            style={{ height: '300px', marginTop: '20px', marginBottom: '60px' }}
                         />
                     ) : (
                         <Box sx={{ border: '1px solid #000', borderRadius: '5px', p: 2, mt: 4 }}>

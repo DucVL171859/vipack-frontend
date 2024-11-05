@@ -40,7 +40,6 @@ const BlogCreate = () => {
         event.preventDefault();
         let finalImageUrl = imageInputType === 'file' ? uploadedImageUrl : inputImageUrl;
         let finalBlog = { ...blog, imageUrl: finalImageUrl };
-        console.log(finalBlog)
         try {
             let resOfCreate = await blogServices.createNewBlog(finalBlog);
             if (resOfCreate.data) {

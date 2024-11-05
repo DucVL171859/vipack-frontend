@@ -1,8 +1,9 @@
-import { BallotOutlined, ContentPasteGoOutlined } from '@mui/icons-material';
+import { BallotOutlined, ContentPasteGoOutlined, Inventory2Outlined } from '@mui/icons-material';
 
 const icons = {
     BallotOutlined,
-    ContentPasteGoOutlined
+    ContentPasteGoOutlined,
+    Inventory2Outlined
 };
 
 const catalogue = {
@@ -11,18 +12,25 @@ const catalogue = {
     type: 'group',
     children: [
         {
-            id: 'blogs',
-            title: 'Blogs',
-            type: 'item',
-            url: '/admin/blogs',
-            icon: icons.BallotOutlined,
-        },
-        {
             id: 'order',
             title: 'Đơn hàng',
             type: 'item',
             url: '/admin/orders',
             icon: icons.ContentPasteGoOutlined,
+        },
+        {
+            id: 'products',
+            title: 'Sản phẩm',
+            type: 'item',
+            url: '/admin/products',
+            icon: icons.Inventory2Outlined,
+        },
+        {
+            id: 'blogs',
+            title: 'Blogs',
+            type: 'item',
+            url: '/admin/blogs',
+            icon: icons.BallotOutlined,
         },
     ]
 };

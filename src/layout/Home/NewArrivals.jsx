@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import shopServices from 'services/shopServices';
 
 const formatPrice = (price) => {
@@ -8,6 +8,7 @@ const formatPrice = (price) => {
 };
 
 const NewArrivals = () => {
+    const navigate = useNavigate();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -22,10 +23,14 @@ const NewArrivals = () => {
     }, []);
 
     const getProducts = async () => {
-        let resOfProducts = await shopServices.getAllProduct('', '');
+        let resOfProducts = await shopServices.getAllProduct('', '671de6c39c6278fcbe330576');
         if (resOfProducts.data.products) {
             setProducts(resOfProducts.data.products);
         }
+    }
+
+    const handleGetProductDetail = (slug) => {
+        navigate(`/shop/product/${slug}`);
     }
 
     return (
@@ -54,15 +59,16 @@ const NewArrivals = () => {
                 }}
             >
                 {products && products.slice(0, 6).map((product) => (
-                    <Box key={product.id} sx={{ textAlign: 'center', width: '100%', mb: 4 }}>
+                    <Box key={product._id} sx={{ textAlign: 'center', width: '100%', mb: 4 }}>
                         <img
                             src={product.image}
                             alt={product.name}
                             style={{
                                 width: isMobile ? '160px' : '100%',
                                 height: isMobile ? '220px' : '400px',
-                                objectFit: 'cover',
+                                objectFit: 'cover', cursor: 'pointer'
                             }}
+                            onClick={() => handleGetProductDetail(product._id)}
                         />
                         <Typography variant="body1" sx={{ fontWeight: 600 }}>{product.name}</Typography>
                         <Typography variant="body1" sx={{ display: 'inline', mr: 1, fontWeight: 600 }}>

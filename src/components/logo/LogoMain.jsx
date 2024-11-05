@@ -2,7 +2,7 @@ import logo from "../../assets/images/logo.png"
 
 const Logo = () => {
     return (
-        <img src={logo} alt="InkMelo" width={120} height={60} />
+        <img src={logo} alt="InkMelo" width={60} height={60} />
     );
 };
 

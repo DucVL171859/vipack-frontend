@@ -9,6 +9,9 @@ const BlogCreate = Loadable(lazy(() => import('pages/admin/blog/BlogCreate')));
 const BlogView = Loadable(lazy(() => import('pages/admin/blog/BlogView')));
 const BlogManagement = Loadable(lazy(() => import('pages/admin/blog/BlogManagement')));
 const OrderManagement = Loadable(lazy(() => import('pages/admin/order/OrderManagement')));
+const ProductCreate = Loadable(lazy(() => import('pages/admin/product/ProductCreate')));
+const ProductView = Loadable(lazy(() => import('pages/admin/product/ProductView')));
+const ProductManagement = Loadable(lazy(() => import('pages/admin/product/ProductManagement')));
 
 const AdminRoutes = {
     path: '/admin',
@@ -24,6 +27,23 @@ const AdminRoutes = {
                 {
                     path: '',
                     element: <ProtectedRoute element={<OrderManagement />} />
+                }
+            ]
+        },
+        {
+            path: 'products',
+            children: [
+                {
+                    path: '',
+                    element: <ProtectedRoute element={<ProductManagement />} />
+                },
+                {
+                    path: ':slug',
+                    element: <ProtectedRoute element={<ProductView />} />
+                },
+                {
+                    path: 'create-product',
+                    element: <ProtectedRoute element={<ProductCreate />} />
                 }
             ]
         },

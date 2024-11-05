@@ -1,7 +1,7 @@
 import axios from "api/aixos";
 
 const getAllProduct = async (name, categoryId) => {
-    return await axios.get(`/api/products`,
+    return await axios.get(`/api/products?keyword=${name}&category=${categoryId}`,
         {
             params: {
                 name: name,

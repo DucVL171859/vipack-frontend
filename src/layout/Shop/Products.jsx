@@ -1,18 +1,18 @@
-import { Card, CardMedia, CardContent, Typography, Button, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import shopServices from 'services/shopServices';
 
 const formatPrice = (price) => {
     return price.toLocaleString('vi-VN');
 };
 
-const Products = () => {
+const Products = ({ filterCategory }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const navigate = useNavigate();
 
     const [listOfProduct, setListOfProduct] = useState([]);
-    const [hoveredProductId, setHoveredProductId] = useState(null);
-    const [showButtonTimeout, setShowButtonTimeout] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,79 +20,60 @@ const Products = () => {
         };
 
         fetchData();
-    }, []);
+    }, [filterCategory]);
 
     const getAllProduct = async () => {
-        let res = await shopServices.getAllProduct();
+        let res;
+
+        if (filterCategory === "all") {
+            res = await shopServices.getAllProduct('', '');
+        } else {
+            res = await shopServices.getAllProduct('', filterCategory);
+            console.log(filterCategory)
+        }
+
         if (res) {
             setListOfProduct(res.data.products);
         }
     };
 
-    const handleMouseEnter = (id) => {
-        setHoveredProductId(id);
-        let timeout = setTimeout(() => {
-            setShowButtonTimeout(id);
-        }, 1000);
-        setShowButtonTimeout(timeout);
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredProductId(null);
-        if (showButtonTimeout) {
-            clearTimeout(showButtonTimeout);
-            setShowButtonTimeout(null);
-        }
+    const handleImageClick = (id) => {
+        navigate(`/shop/product/${id}`);
     };
 
     return (
-        <Grid container spacing={isMobile ? 1 : 2} columns={isMobile ? 2 : 3}>
+        <Grid container spacing={isMobile ? 2 : 3} justifyContent="center" mt={4} sx={{ paddingX: 2 }}>
             {listOfProduct && listOfProduct.map((product) => (
-                <Grid item xs={1} key={product._id}>
-                    <Card sx={{ position: 'relative' }}>
+                <Grid item xs={12} sm={6} md={4} lg={4} key={product._id} sx={{ display: 'flex', justifyContent: 'center', marginBottom: 3 }}>
+                    <Card sx={{ width: '450px', height: '100%', boxShadow: 3, borderRadius: 2 }}>
                         <CardMedia
                             component="img"
-                            image={hoveredProductId === product._id ? product.image2 : product.image}
+                            image={product.image}
                             alt={product.name}
                             sx={{
-                                height: isMobile ? 220 : 400,
-                                objectFit: 'cover',
-                                transition: '1s ease',
-                                '&:hover': {
-                                    opacity: '0.6',
-                                },
+                                width: '100%',
+                                height: 400,
+                                objectFit: 'contain',
+                                cursor: 'pointer',
                             }}
-                            onMouseEnter={() => handleMouseEnter(product._id)}
-                            onMouseLeave={handleMouseLeave}
+                            onClick={() => handleImageClick(product._id)}
                         />
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                            <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                            <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: 1 }}>
                                 {product.name}
                             </Typography>
-                            <Typography variant="body1" sx={{ display: 'inline', fontWeight: 600 }}>
-                                {product.price && `${formatPrice(product.price)} VND`}
-                            </Typography>
+                            {
+                                product.price !== 0 ? (
+                                    <Typography variant="body1" sx={{ fontWeight: 500, fontWeight: 600, color: 'red' }}>
+                                        {product.price && `${formatPrice(product.price)} VND`}
+                                    </Typography>
+                                )
+                                    :
+                                    (<Typography variant="body1" sx={{ fontWeight: 500, fontWeight: 600, color: 'red' }}>
+                                        {product.category}
+                                    </Typography>)
+                            }
                         </CardContent>
-                        {hoveredProductId === product._id && (
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    position: 'absolute',
-                                    top: '50%',
-                                    left: '50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    backgroundColor: 'transparent',
-                                    color: 'white',
-                                    border: '1px solid white',
-                                    opacity: hoveredProductId === product._id ? 1 : 0,
-                                    transition: 'opacity 3s ease',
-                                    zIndex: 2,
-                                }}
-                                onClick={() => {/* Handle view detail */ }}
-                            >
-                                View Details
-                            </Button>
-                        )}
                     </Card>
                 </Grid>
             ))}
