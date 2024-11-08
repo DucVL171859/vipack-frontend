@@ -41,20 +41,37 @@ const DesignDetails = ({ blogId }) => {
                 </Typography>
 
                 <Box sx={{ marginY: 2 }}>
-                    {designs && designs.map((design, index) => (
+                    {designs.map((design, index) => (
                         <Box key={index} sx={{
-                            display: 'flex',
-                            alignItems: 'center',
+                            display: '-webkit-box',
+                            WebkitAlignItems: 'unset',
                             marginY: 1,
                             paddingBottom: 1
                         }}>
-                            <img
-                                src={design.image}
-                                alt={design.title}
-                                style={{ width: '80px', height: '80px', borderRadius: '8px' }}
-                            />
+                            <div
+                                style={{
+                                    width: '120px',
+                                    height: '120px',
+                                    backgroundColor: '#f0b6b6',
+                                    borderRadius: '50%',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    display: 'flex'
+                                }}
+                            >
+                                <img
+                                    src={design.image}
+                                    alt={design.title}
+                                    style={{
+                                        width: '65%',
+                                        height: '65%',
+                                        borderRadius: '20px',
+                                    }}
+                                />
+                            </div>
+
                             <Box sx={{ display: 'flex', flexDirection: 'column', ml: 2 }}>
-                                <Typography variant="h6" fontWeight='bold'>
+                                <Typography variant="h6" fontWeight="bold">
                                     {design.title}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
@@ -66,7 +83,7 @@ const DesignDetails = ({ blogId }) => {
                 </Box>
             </Box>
         )
-    )
+    );
 }
 
 export default DesignDetails;

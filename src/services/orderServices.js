@@ -1,5 +1,4 @@
 import aixos from "api/aixos";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 const isAdmin = sessionStorage.getItem('isAdmin');

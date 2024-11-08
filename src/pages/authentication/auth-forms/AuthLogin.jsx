@@ -69,8 +69,6 @@ const AuthLogin = () => {
             let resOfLogin = await authServices.login(loginUser);
             if (resOfLogin.status === 200) {
                 let data = resOfLogin.data;
-                console.log(data);
-                // sessionStorage.setItem('token', data.token);
                 sessionStorage.setItem('currentUser', data.username);
                 sessionStorage.setItem('isAdmin', data.isAdmin);
 

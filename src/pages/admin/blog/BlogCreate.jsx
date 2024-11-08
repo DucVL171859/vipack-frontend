@@ -98,7 +98,7 @@ const BlogCreate = () => {
                             <img
                                 src={uploadedImageUrl}
                                 alt="Hình ảnh đã chọn"
-                                style={{ width: '200px', height: '80px', marginBottom: '10px', objectFit: 'scale-down' }}
+                                style={{ width: '200px', height: '80px', marginBottom: '10px', objectFit: 'scale-down', borderRadius: '20px' }}
                             />
                         </div>
                     )}
