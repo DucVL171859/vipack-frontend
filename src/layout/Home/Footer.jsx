@@ -34,10 +34,10 @@ const Footer = () => {
                             <LocationOnOutlined /> Hiện tại chúng tôi đang chạy các nền tảng Online
                         </Typography>
                         <Typography variant="body2" align="left" sx={{ mb: 1 }}>
-                            <EmailOutlined /> vipack@gmail.com
+                            <EmailOutlined /> vipack.suviet@gmail.com
                         </Typography>
                         <Typography variant="body2" align="left">
-                            <PhoneEnabledOutlined /> 0965 507 937
+                            <PhoneEnabledOutlined /> 032 952 0048
                         </Typography>
                     </Grid>
                 </Grid>
