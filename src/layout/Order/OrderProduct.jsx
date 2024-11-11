@@ -25,6 +25,7 @@ const OrderProduct = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+    const [isRedirecting, setIsRedirecting] = useState(false);
 
     useEffect(() => {
         const fetchData = () => {
@@ -65,7 +66,8 @@ const OrderProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await orderServices.createOrder(formData);
+            let resOfCreateOrder = await orderServices.createOrder(formData);
+            let checkoutURL = resOfCreateOrder.data.paymentData.checkoutUrl;
             setFormData({
                 staff: 'KH',
                 products: [],
@@ -79,7 +81,15 @@ const OrderProduct = () => {
                 description: ''
             });
             toast.success('Đặt đơn hàng thành công');
-            setOpenSuccessDialog(true);
+            toast.warning('Đang chuyển hướng đến trang thanh toán!');
+            if (formData.paymentMethod === 'Payos' && checkoutURL) {
+                setIsRedirecting(true);
+                setTimeout(() => {
+                    window.location.href = checkoutURL;
+                }, 5000);
+            } else {
+                setOpenSuccessDialog(true);
+            }
         } catch (error) {
             console.log(error);
             toast.error('Có lỗi khi đặt đơn hàng!');
@@ -332,6 +342,14 @@ const OrderProduct = () => {
                     </Box>
                 </Grid>
             </Grid>
+
+            {isRedirecting && (
+                <Box sx={{ marginTop: 2, textAlign: 'center', color: 'green' }}>
+                    <Typography variant="body1">
+                        Đang chuyển hướng đến trang thanh toán, vui lòng đợi...
+                    </Typography>
+                </Box>
+            )}
 
             <Dialog open={openDialog} onClose={closeProductDialog}>
                 <DialogTitle>Chọn sản phẩm</DialogTitle>

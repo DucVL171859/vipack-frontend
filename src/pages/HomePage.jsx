@@ -4,6 +4,7 @@ import Header from "layout/Home/Header";
 import HotSale from "layout/Home/HotSale";
 import NewArrivals from "layout/Home/NewArrivals";
 import PreProduct from "layout/Home/PreProduct";
+import MessengerChat from "api/messenger";
 
 const HomePage = () => {
     return (
@@ -13,6 +14,7 @@ const HomePage = () => {
             <HotSale />
             <div id="new-arrivals"><NewArrivals /></div>
             <div id="pre-products"><PreProduct /></div>
+            <MessengerChat />
             <Footer />
         </>
     )

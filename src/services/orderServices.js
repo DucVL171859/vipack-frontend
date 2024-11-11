@@ -37,7 +37,7 @@ const updateStatusToBeDeliveried = async (orderId) => {
 
 const deleteOrder = async (orderId) => {
     if (isAdmin) {
-        return await axios.delete(`/api/orders/${orderId}`);
+        return await aixos.delete(`/api/orders/${orderId}`);
     } else {
         toast.error('Tài khoản này không cho phép lấy dữ liệu');
     }
