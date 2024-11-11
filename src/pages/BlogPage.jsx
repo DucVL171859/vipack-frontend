@@ -31,17 +31,7 @@ const BlogPage = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                     <Container>
                         <Grid container spacing={2} alignItems="center" sx={{ marginBottom: 4 }} justifyContent="center">
-                            <Grid item xs={12} sm={6} textAlign={{ xs: 'center', sm: 'left' }}>
-                                <Typography variant="h4">Việt Nam Sử Thư Đình</Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}
-                                sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, marginTop: { xs: 2, sm: 0 } }}>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Tìm kiếm câu chuyện..."
-                                    sx={{ width: '300px' }}
-                                />
-                            </Grid>
+                            <Typography variant="h4">Việt Nam Sử Thư Đình</Typography>
                         </Grid>
                     </Container>
                 </Box>
